@@ -1,15 +1,21 @@
+#import lib for bot
 import disnake
 import discord
 
 import datetime
+
+#import os lib for security
 import os
 
-from disnake import Client
+from dotenv import load_dotenv
+load_dotenv()
 from disnake.ext import commands
 
 intents = discord.Intents.default()
 client = discord.Client(intents=intents)
 user = disnake.Message.author
+TOKEN = os.getenv('DISCORD_TOKEN')
+
 
 bot = commands.Bot(command_prefix=disnake.ext.commands.when_mentioned)
 game = disnake.Game("API")
@@ -17,7 +23,7 @@ game = disnake.Game("API")
 # Когда бот будет готов, эта функция будет запущена.
 @bot.event
 async def on_ready():
-    await bot.change_presence(status=disnake.Status.idle, activity=game)
+    await bot.change_presence(status=disnake.Status.do_not_disturb, activity=game)
     print("Bot is ready!")
 
 @bot.slash_command()
@@ -48,4 +54,4 @@ async def fullembed(inter):
 
 
 # Войдите в Discord с помощью токена бота.
-bot.run("MTA2NDM5NTU3NTQ4ODk0MjE0MA.GvRvs_.s09pIiRUKRL7sjtK4Eja7Tvua_T9K_DYhwNoD0")
+bot.run(TOKEN)
